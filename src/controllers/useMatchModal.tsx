@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Match } from '../types/Match'
 import { MATCH_MODAL_MODE } from '../constants/matchModalModes'
 
