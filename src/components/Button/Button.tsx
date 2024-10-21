@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import './Button.css'
 
-interface Button {
+interface ButtonProps {
     disabled?: boolean
     className?: string;
     title: string;
@@ -9,7 +9,7 @@ interface Button {
     onClick?: () => void
 }
 
-const Button: FunctionComponent<Button> = ({ disabled, className, title, onClick, submit }) => {
+const Button: FunctionComponent<ButtonProps> = ({ disabled, className, title, onClick, submit }) => {
     return <button disabled={disabled} type={submit ? 'submit' : 'button'} className={`button${className ? ` ${className}` : ''}`} onClick={onClick}>{title}</button>
 }
 

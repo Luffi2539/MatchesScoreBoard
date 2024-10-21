@@ -14,7 +14,7 @@ interface ScoreItemProps {
 const ScoreItem: FunctionComponent<ScoreItemProps> = ({ match, onUpdateClick, onFinishClick }) => {
     const handleUpdateClick = useCallback(() => {
         onUpdateClick(match)
-    }, [onUpdateClick])
+    }, [onUpdateClick, match])
 
     const handleFinishMatchClick = useCallback(() => {
         onFinishClick(match.id)
