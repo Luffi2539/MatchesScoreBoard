@@ -1,40 +1,41 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { createPortal } from "react-dom"
 
 import ScoreBoard from '../../components/ScoreBoard'
 import useScoreBoard from '../../controllers/useScoreBoard'
-import './MainPage.css'
 import Button from '../../components/Button'
 import MatchPopup from '../../components/MatchPopup'
 import useMatchModal from '../../controllers/useMatchModal'
 import { MATCH_MODAL_MODE } from '../../constants/matchModalModes'
 import { Match } from '../../types/Match'
 
+import './MainPage.css'
+
 
 const MainPage = () => {
     const { matches, onUpdateMatch, onFinishMatch, onAddNewMatch } = useScoreBoard()
     const { isModalOpened, setModalOpen, setModalMode, modalMode, modalMatch, setModalMatch } = useMatchModal()
 
-    const handleAddNewMatchClick = () => {
+    const handleAddNewMatchClick = useCallback(() => {
         setModalOpen(true)
         setModalMode(MATCH_MODAL_MODE.ADD)
-    }
+    }, [setModalOpen, setModalMode])
 
-    const handleUpdateMatchClick = (matchToUpdate: Match) => {
+    const handleUpdateMatchClick = useCallback((matchToUpdate: Match) => {
         setModalMode(MATCH_MODAL_MODE.EDIT)
         setModalMatch(matchToUpdate)
         setModalOpen(true)
-    }
+    }, [setModalMatch, setModalMode, setModalOpen])
 
-    const handleAddNewMatch = (newMatch: Match) => {
+    const handleAddNewMatch = useCallback((newMatch: Match) => {
         onAddNewMatch(newMatch);
         setModalOpen(false)
-    }
+    }, [onAddNewMatch, setModalOpen])
     
-    const handleUpdateMatch = (updatedMatch: Match) => {
+    const handleUpdateMatch = useCallback((updatedMatch: Match) => {
         onUpdateMatch(updatedMatch);
         setModalOpen(false)
-    }
+    }, [onUpdateMatch, setModalOpen])
     
     return (
         <>

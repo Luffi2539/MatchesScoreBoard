@@ -1,4 +1,4 @@
-import { FormEvent, FunctionComponent, useEffect, useState } from "react"
+import { FormEvent, FunctionComponent, useCallback, useEffect, useState, useMemo } from "react"
 import { MATCH_MODAL_MODE } from '../../constants/matchModalModes'
 import './MatchPopup.css'
 import { Match, MatchWithoutId } from "../../types/Match";
@@ -22,9 +22,9 @@ const MatchPopup: FunctionComponent<MatchModal> = ({ mode, isOpened, match, onAd
     const [homeTeamScore, setHomeTeamScore] = useState(match ? match.homeTeamScore : 0)
     const [awayTeamScore, setAwayTeamScore] = useState(match ? match.awayTeamScore : 0)
 
-    const isEditMode = mode === MATCH_MODAL_MODE.EDIT
+    const isEditMode = useMemo(() => mode === MATCH_MODAL_MODE.EDIT, [mode])
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = useCallback((e: FormEvent) => {
         e.preventDefault()
 
         if(isEditMode && match) {
@@ -49,7 +49,7 @@ const MatchPopup: FunctionComponent<MatchModal> = ({ mode, isOpened, match, onAd
             ...newMatch,
             id: generateId(newMatch)
         })
-    }
+    }, [onAddNewMatch, onUpdateMatch, awayTeamName, awayTeamScore, homeTeamName, homeTeamScore, isEditMode, match])
 
     useEffect(() => {
         if(match) {
