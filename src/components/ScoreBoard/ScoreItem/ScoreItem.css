@@ -1,0 +1,10 @@
+.score__container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.team__container {
+    display: flex;
+    gap: 5px;
+}
